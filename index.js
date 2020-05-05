@@ -1,3 +1,5 @@
+//--------------------Detecting Button Press-----------------------//
+
 var numDrumButtons = document.querySelectorAll(".drum").length; // will use in for loop below target all buttons with the class drum
 
 for (var i = 0; i < numDrumButtons; i++) {
@@ -7,49 +9,60 @@ for (var i = 0; i < numDrumButtons; i++) {
 
   document.querySelectorAll(".drum")[i].addEventListener("click", function () {
     var buttonInnerHTML = this.innerHTML; //setting the variable to the button that triggered the event
-
-    switch (
-      buttonInnerHTML //switching the innerHTML of whichever button is passed in
-    ) {
-      case "w":
-        var tom1 = new Audio("sounds/tom-1.mp3"); // creates a HTML <audio> element behind the scenes
-        tom1.play(); // plays back the specified sound above
-        break; // exit the switch statement if this condition is true
-
-      case "a":
-        var tom2 = new Audio("sounds/tom-2.mp3");
-        tom2.play();
-        break;
-
-      case "s":
-        var tom3 = new Audio("sounds/tom-3.mp3");
-        tom3.play();
-        break;
-
-      case "d":
-        var tom4 = new Audio("sounds/tom-4.mp3");
-        tom4.play();
-        break;
-
-      case "j":
-        var snare = new Audio("sounds/snare.mp3");
-        snare.play();
-        break;
-
-      case "k":
-        var crash = new Audio("sounds/crash.mp3");
-        crash.play();
-        break;
-
-      case "l":
-        var kick = new Audio("sounds/kick-bass.mp3");
-        kick.play();
-        break;
-
-      default:
-        console.log(buttonInnerHTML);
-    }
+    makeSound(buttonInnerHTML); //passing in the innerHTML of the button that was pressed to the makeSound function
   });
 }
 
-// this.style.color = "white"; // visually identifying which button has been clicked
+//--------------------Detecting Key Press-----------------------//
+//adding the event listener to the entire document as opposed to a single/set of elements
+document.addEventListener("keypress", function (event) {
+  // passing in an event allows us to tap into the event that triggered the event listener
+  // event contains a property called key, which tells us which keyboard key was pressed
+  makeSound(event.key); // send the key property of the event to the make sound function
+  //e.g if i pressed "w" makeSound recieved "w" as the key and case "w" will be executed
+});
+
+//--------------------Detecting Button Press-----------------------//
+//depending on the click or keyboard press that was detected above, execute the relevant case, playing the correct sound
+
+function makeSound(key) {
+  switch (key) {
+    case "w":
+      var tom1 = new Audio("sounds/tom-1.mp3"); // play the tom-1 audio file (new Audio() creates a HTML <audio> element behind the scenes)
+      tom1.play(); // play the specified sound above
+      break; // exit the switch statement if this condition is true
+
+    case "a":
+      var tom2 = new Audio("sounds/tom-2.mp3");
+      tom2.play();
+      break;
+
+    case "s":
+      var tom3 = new Audio("sounds/tom-3.mp3");
+      tom3.play();
+      break;
+
+    case "d":
+      var tom4 = new Audio("sounds/tom-4.mp3");
+      tom4.play();
+      break;
+
+    case "j":
+      var snare = new Audio("sounds/snare.mp3");
+      snare.play();
+      break;
+
+    case "k":
+      var crash = new Audio("sounds/crash.mp3");
+      crash.play();
+      break;
+
+    case "l":
+      var kick = new Audio("sounds/kick-bass.mp3");
+      kick.play();
+      break;
+
+    default:
+      console.log(buttonInnerHTML);
+  }
+}
