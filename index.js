@@ -10,6 +10,7 @@ for (var i = 0; i < numDrumButtons; i++) {
   document.querySelectorAll(".drum")[i].addEventListener("click", function () {
     var buttonInnerHTML = this.innerHTML; //setting the variable to the button that triggered the event
     makeSound(buttonInnerHTML); //passing in the innerHTML of the button that was pressed to the makeSound function
+    buttonAnimiation(buttonInnerHTML);
   });
 }
 
@@ -20,6 +21,7 @@ document.addEventListener("keypress", function (event) {
   // event contains a property called key, which tells us which keyboard key was pressed
   makeSound(event.key); // send the key property of the event to the make sound function
   //e.g if i pressed "w" makeSound recieved "w" as the key and case "w" will be executed
+  buttonAnimiation(event.key);
 });
 
 //--------------------Detecting Button Press-----------------------//
@@ -65,4 +67,12 @@ function makeSound(key) {
     default:
       console.log(buttonInnerHTML);
   }
+}
+
+function buttonAnimiation(currentKey) {
+  var activeButton = document.querySelector("." + currentKey); //concatenating the character with a . so we can query the document properly e.g. ".k"
+  activeButton.classList.add("pressed"); //adding the class of pressed to the button that gets pressed
+  setTimeout(() => {
+    activeButton.classList.remove("pressed");
+  }, 100); //after 0.1 seconds remove that class from the classlist of the button.
 }
